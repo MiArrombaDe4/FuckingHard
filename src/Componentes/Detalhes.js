@@ -6,22 +6,19 @@ const ROTULOS_MEDIDAS = {
   bunda: 'Bunda',
   cintura: 'Cintura',
   coxas: 'Coxas',
-  peitos: 'Peito',
+  peitos: 'Peitos',
   buceta: 'Buceta',
-  cu: 'Cu',
+  cu: 'Anal',
   tamanhoRola: 'Rola',
   grossuraRola: 'Grossura da rola',
   bolas: 'Bolas'
 };
 
-function renderizarItemMedida(medida) {
-  return `
-    <li>
-      <span>${medida.emoji || '📌'} ${ROTULOS_MEDIDAS[medida.chave] || medida.chave}</span>
-      <strong>${medida.value} cm · ${medida.tag || '—'}</strong>
-    </li>
-  `;
-
+function renderizarResumoMedidas(medidas) {
+  return medidas
+    .slice(0, 6)
+    .map((medida) => `<li><span>${ROTULOS_MEDIDAS[medida.chave] || medida.chave}</span><strong>${medida.value}</strong></li>`)
+    .join('');
 }
 
 export function renderizarDetalhes(container, perfil) {
@@ -30,63 +27,61 @@ export function renderizarDetalhes(container, perfil) {
     return;
   }
 
-  const { identidade, detalhesFisicosBasicos, preferencias, experienciaSexual, midia } = perfil;
+  const { identidade, preferencias, experienciaSexual, descricaoCompleta, midia } = perfil;
   const medidas = buscarMedidasVisiveis(perfil);
   const capa = buscarFotoPerfil(midia);
+  const progresso = Math.min(100, Math.max(10, Math.round((experienciaSexual.contagemSexo / 1000) * 100)));
 
   container.innerHTML = `
     <a href="./index.html" class="link">← Voltar</a>
-    <article class="perfil">
-      <div class="linha-perfil">
-        <div class="heroi-perfil">
-          <img class="perfil-media-principal" src="${capa}" alt="${identidade.nome}">
-          <div class="sobreposicao-perfil">
-            <h1>${identidade.nome}, ${identidade.idade.value}</h1>
-            <p>${identidade.genero} • ${identidade.universo}</p>
-          </div>
-        </div>
+    <article class="perfil perfil-rpg">
+      <div class="perfil-stage">
+        <div class="fundo-ambiente" aria-hidden="true"></div>
 
-        <section class="secao-sobre">
-          <h2>Sobre</h2>
-          <p>${perfil.descricaoCompleta}</p>
-        </section>
-      </div>
+        <aside class="menu-perfil">
+          <img class="avatar-mini" src="${capa}" alt="Avatar de ${identidade.nome}">
+          <button class="botao-ui">Roupas</button>
+          <button class="botao-ui">Banho</button>
 
-      <div class="linha-perfil">
-        <section>
-          <h2>Detalhes básicos</h2>
-          <ul class="lista-detalhes">
-            <li><span>Altura</span><strong>${detalhesFisicosBasicos.altura}</strong></li>
-            <li><span>Peso</span><strong>${detalhesFisicosBasicos.peso}</strong></li>
-            <li><span>Espécie</span><strong>${detalhesFisicosBasicos.especie}</strong></li>
-            <li><span>Cabelo</span><strong>${detalhesFisicosBasicos.corCabelo} · ${detalhesFisicosBasicos.estiloCabelo}</strong></li>
-            <li><span>Olhos</span><strong>${detalhesFisicosBasicos.olhos}</strong></li>
-            <li><span>Pele</span><strong>${detalhesFisicosBasicos.pele}</strong></li>
-          </ul>
-        </section>
+          <section class="painel-ui">
+            <h1>${identidade.nome}</h1>
+            <p>Nível: ${Math.max(1, Math.floor(experienciaSexual.contagemSexo / 50))}</p>
+            <div class="barra-status" role="img" aria-label="Progresso ${progresso}%">
+              <span style="width:${progresso}%"></span>
+            </div>
+            <p>Clientes que fez gozar: ${experienciaSexual.rolasExperimentadas}</p>
 
-        <section>
-          <h2>Medidas</h2>
-          <ul class="lista-detalhes">
-            ${medidas.map(renderizarItemMedida).join('')}
-          </ul>
-        </section>
-      </div>
+            <ul class="stats-grid">
+              ${renderizarResumoMedidas(medidas)}
+            </ul>
 
-      <div class="linha-perfil">
-        <section>
-          <h2>Experiência e preferências</h2>
-          <ul class="lista-detalhes">
-            <li><span>Experiências registradas</span><strong>${experienciaSexual.contagemSexo}</strong></li>
-            <li><span>Parceiros registrados</span><strong>${experienciaSexual.rolasExperimentadas}</strong></li>
-            <li><span>Posição favorita</span><strong>${preferencias.posicaoFavorita}</strong></li>
-            <li><span>Roupa favorita</span><strong>${preferencias.roupaFavorita}</strong></li>
-            <li><span>Ocupação</span><strong>${preferencias.ocupacao}</strong></li>
-            <li><span>Interesses</span><strong>${(preferencias.fetiche || []).join(', ') || '—'}</strong></li>
-          </ul>
+            <h2>Habilidades</h2>
+            <p>${(preferencias.fetiche || []).slice(0, 3).join(' • ') || 'Sem habilidades cadastradas.'}</p>
+            <p>${descricaoCompleta.slice(0, 160)}...</p>
+
+            <button class="botao-ui botao-centro">Biografia</button>
+          </section>
+
+          <button class="botao-ui botao-sair">Sair</button>
+        </aside>
+
+        <section class="acoes-laterais" aria-label="Ações rápidas">
+          <button class="card-acao">💤<span>Dormir</span></button>
+          <button class="card-acao">🎞️<span>Galeria</span></button>
+          <button class="card-acao">📖<span>Diário</span></button>
         </section>
 
-        ${renderizarGaleria(midia)}
+        <section class="painel-roupas">
+          <header>
+            <h2>${preferencias.roupaFavorita || 'Outfit padrão'}</h2>
+            <button class="botao-ui">Variações</button>
+          </header>
+          <p>Modelo principal inspirado no layout de referência, mantendo os cartões em destaque.</p>
+          ${renderizarGaleria(midia)}
+          <button class="botao-ui">Roupa diária aleatória: Desligada</button>
+        </section>
+
+        <img class="personagem-destaque" src="${capa}" alt="${identidade.nome}">
       </div>
     </article>
   `;
