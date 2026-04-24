@@ -13,19 +13,16 @@ export function renderizarCards(container, perfils) {
           const capa = buscarFotoMenu(perfil.midia);
 
           return `
-            <a href="./Perfil.html?id=${perfil.id}" class="card-link" aria-label="Abrir perfil de ${perfil.identidade.nome}">
-              <article class="card">
-                <img class="card-media-principal" src="${capa}" alt="${perfil.identidade.nome}" loading="lazy">
-                <div class="card-body">
-                  <h3>${perfil.identidade.nome}</h3>
-                  <p class="subtitle">${perfil.descricaoCurta}</p>
-                </div>
-              </article>
-            </a>
+            <article class="card">
+              <img class="card-media-principal" src="${capa}" alt="${perfil.identidade.nome}" loading="lazy">
+              <div class="card-body">
+                <h3>${perfil.identidade.nome}</h3>
+                <p class="subtitle">${perfil.descricaoCurta}</p>
+              </div>
+            </article>
           `;
         })
         .join('')}
     </div>
   `;
-
 }
