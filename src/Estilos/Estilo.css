@@ -428,3 +428,233 @@ input:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Tema das páginas de perfil (referência: mockups enviados). */
+.Perfil-pagina {
+  width: 100%;
+  min-height: 100vh;
+  max-width: none;
+  padding: 0.5rem;
+}
+
+.Perfil-pagina #Perfil-root {
+  min-height: calc(100vh - 1rem);
+}
+
+.perfil-rpg {
+  max-width: 100%;
+}
+
+.perfil-stage {
+  position: relative;
+  min-height: calc(100vh - 5rem);
+  border: 2px solid #3f2230;
+  border-radius: 12px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 190px 130px minmax(420px, 1fr) 430px;
+  grid-template-rows: 1fr;
+  gap: 0.75rem;
+  padding: 0.7rem;
+  background: #05070e;
+}
+
+.fundo-ambiente {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 80%, color-mix(in srgb, #c09f7f 32%, transparent) 0%, transparent 44%),
+    linear-gradient(180deg, rgba(7, 16, 34, 0.88) 0%, rgba(12, 10, 18, 0.72) 100%),
+    linear-gradient(130deg, #11182b 0%, #0d1523 38%, #191320 100%);
+  filter: saturate(0.75);
+}
+
+.menu-perfil,
+.acoes-laterais,
+.painel-roupas,
+.personagem-destaque {
+  position: relative;
+  z-index: 2;
+}
+
+.menu-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.avatar-mini {
+  width: 110px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #402a2b;
+  background: #8f2b45;
+}
+
+.botao-ui {
+  border: 0;
+  border-radius: 10px;
+  color: #f8ddce;
+  background: linear-gradient(180deg, #9a3148 0%, #85283f 100%);
+  padding: 0.55rem 0.8rem;
+  font-weight: 700;
+}
+
+.painel-ui {
+  margin-top: 0.1rem;
+  background: #c9ab8a;
+  color: #251912;
+  border: 2px solid #e9d6bd;
+  border-radius: 8px;
+  padding: 0.8rem;
+}
+
+.painel-ui h1,
+.painel-ui h2,
+.painel-ui p {
+  margin: 0 0 0.45rem;
+}
+
+.barra-status {
+  width: 100%;
+  background: #d6dcbf;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid #9d8f76;
+  height: 22px;
+  margin-bottom: 0.6rem;
+}
+
+.barra-status span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #edbf49, #f2d563);
+}
+
+.stats-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.8rem;
+  columns: 2;
+  column-gap: 1.2rem;
+}
+
+.stats-grid li {
+  break-inside: avoid;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.32rem;
+}
+
+.botao-centro {
+  display: block;
+  margin: 0.8rem auto 0;
+}
+
+.botao-sair {
+  width: fit-content;
+  margin-top: 0.5rem;
+}
+
+.acoes-laterais {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.card-acao {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: center;
+  font-size: 1.7rem;
+  border: 0;
+  width: 100%;
+  border-radius: 10px;
+  color: #f7e6d9;
+  background: linear-gradient(180deg, #9a3148 0%, #84273d 100%);
+  padding: 0.55rem 0.25rem;
+}
+
+.card-acao span {
+  font-size: 0.75rem;
+}
+
+.painel-roupas {
+  align-self: end;
+  background: color-mix(in srgb, #c9ab8a 95%, white 5%);
+  border: 2px solid #efe2cc;
+  border-radius: 8px;
+  color: #271912;
+  padding: 0.8rem;
+  max-height: 86%;
+  overflow: auto;
+}
+
+.painel-roupas > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.painel-roupas .botao-ui {
+  min-width: 180px;
+}
+
+.painel-roupas .media-grid {
+  border: 0;
+  color: #2e1f17;
+  padding: 0;
+  margin: 0.7rem 0;
+  background: transparent;
+}
+
+.painel-roupas .media-grid h2,
+.painel-roupas .media-counts,
+.painel-roupas .media-note {
+  display: none;
+}
+
+.painel-roupas .profile-media-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.painel-roupas .media-thumb {
+  border-color: #34231b;
+  background: #948b83;
+}
+
+.personagem-destaque {
+  align-self: end;
+  justify-self: end;
+  height: 92%;
+  max-height: 900px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 1200px) {
+  .perfil-stage {
+    grid-template-columns: 170px 104px minmax(320px, 1fr) 330px;
+  }
+}
+
+@media (max-width: 980px) {
+  .perfil-stage {
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .acoes-laterais {
+    flex-direction: row;
+  }
+
+  .personagem-destaque {
+    justify-self: center;
+    max-height: 440px;
+  }
+}
